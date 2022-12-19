@@ -2,7 +2,8 @@
 lvar = ['o3', 'no', 'no2', 'nox','rh','tmp','wdr','wsp']
 
 def cargar_resultados(estacion):
-    import pandas as pd 
+    import pandas as pd
+    import numpy as np
     evaluacion = {}
     with open(f'evaluacion_{estacion}.txt') as file:
         for line in file:
@@ -27,11 +28,11 @@ def cargar_resultados(estacion):
                 new = l1+L2
                 for elemento in new:
                     k,v = elemento.split(':')
-                    if   'R2'   == k: R2.append(v)
-                    elif 'MSE'  == k: MSE.append(v)
-                    elif 'RMSE' == k: RMSE.append(v)
-                    elif 'MAE'  == k: MAE.append(v)
-                    elif 'MAPE' == k: MAPE.append(v)
+                    if   'R2'   == k: R2.append(float(v))
+                    elif 'MSE'  == k: MSE.append(float(v))
+                    elif 'RMSE' == k: RMSE.append(float(v))
+                    elif 'MAE'  == k: MAE.append(float(v))
+                    elif 'MAPE' == k: MAPE.append(float(v))
                     else: hp.append(v)
                 datos = {'HP':hp,'R2':R2,'MSE':MSE,'RMSE':RMSE,'MAE':MAE,'MAPE':MAPE}
                 evaluacion[corrida]= pd.DataFrame(data=datos) 
